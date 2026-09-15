@@ -6,12 +6,12 @@ As part of `Deliverable ⓵ Development deployment: JWT Pizza`, start up the app
 
 | User activity                                       | Frontend component | Backend endpoints | Database SQL |
 | --------------------------------------------------- | ------------------ | ----------------- | ------------ |
-| View home page                                      |                    |                   |              |
-| Register new user<br/>(t@jwt.com, pw: test)         |                    |                   |              |
-| Login new user<br/>(t@jwt.com, pw: test)            |                    |                   |              |
-| Order pizza                                         |                    |                   |              |
-| Verify pizza                                        |                    |                   |              |
-| View profile page                                   |                    |                   |              |
+| View home page                                      | home.tsx           | none              | none         |
+| Register new user<br/>(t@jwt.com, pw: test)         |                    | [POST]/api/auth   | `INSERT INTO user (name, email, password) VALUES (?, ?, ?)`<br/>`INSERT INTO userRole (userId, role, objectId) VALUES (?, ?, ?)`             |
+| Login new user<br/>(t@jwt.com, pw: test)            | login.tsx          | [PUT]/api/auth    | `SELECT * FROM user WHERE email=?`<br/>`SELECT * FROM userRole WHERE userId=?`             |
+| Order pizza                                         | menu.tsx<br/>payment.tsx<br/>delivery.tsx| [POST]/api/order<br/>[GET]/api/order/menu| `SELECT * FROM menu`<br/>`SELECT id, name FROM franchise WHERE name LIKE ? LIMIT ${limit + 1} OFFSET ${offset}`<br/>`SELECT id, name FROM store WHERE franchiseId=?`<br/>`INSERT INTO dinerOrder (dinerId, franchiseId, storeId, date) VALUES (?, ?, ?, now())`<br/>`INSERT INTO orderItem (orderId, menuId, description, price) VALUES (?, ?, ?, ?)`             |
+| Verify pizza                                        | delivery.tsx       |  none             | none         |
+| View profile page                                   | dinerDashboard.tsx |  [GET]/api/order  | `SELECT id, franchiseId, storeId, date FROM dinerOrder WHERE dinerId=? LIMIT ${offset},${config.db.listPerPage}`<br/>`SELECT id, menuId, description, price FROM orderItem WHERE orderId=?`             |
 | View franchise<br/>(as diner)                       |                    |                   |              |
 | Logout                                              |                    |                   |              |
 | View About page                                     |                    |                   |              |
