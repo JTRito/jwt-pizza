@@ -302,3 +302,11 @@ test('register user', async ({ page }) => {
 
     await expect(page.getByRole('link', { name: 'tu' })).toBeVisible();
 })
+
+
+test('not found', async ({page}) => {
+    await basicInit(page);
+    
+    await page.goto('http://localhost:5173/adsfjkalksdfjas');
+    await expect(page.getByRole('heading')).toContainText('Oops');
+})
