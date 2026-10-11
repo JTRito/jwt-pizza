@@ -10,7 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "playwright test",
-    "test:coverage": "nyc --reporter=json-summary --reporter=text playwright test"
+    "test:coverage": "nyc --reporter=json-summary --reporter=text --reporter=html playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",
