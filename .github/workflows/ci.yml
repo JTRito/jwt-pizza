@@ -70,7 +70,7 @@ jobs:
       version: ${{ needs.build.outputs.version }}
     environment:
       name: production
-      url: https://pizza.yourdomain.click
+      url: https://pizza.jtrito.click
 
     steps:
       - name: Create OIDC token to AWS
