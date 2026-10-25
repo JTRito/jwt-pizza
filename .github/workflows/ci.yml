@@ -80,11 +80,6 @@ jobs:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.CI_IAM_ROLE }}
 
-      - name: Debug Bucket Name
-        run: echo "Targeting bucket length is ${#BUCKET_NAME}"
-        env:
-          BUCKET_NAME: ${{ secrets.APP_BUCKET }}
-
       - name: Push to AWS S3
         run: |
           mkdir dist
