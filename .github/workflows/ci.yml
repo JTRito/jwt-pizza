@@ -66,6 +66,12 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
+    env:
+      version: ${{ needs.build.outputs.version }}
+    environment:
+      name: production
+      url: https://pizza.yourdomain.click
+
     steps:
       - name: Create OIDC token to AWS
         uses: aws-actions/configure-aws-credentials@v6.3.0
