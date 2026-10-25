@@ -60,14 +60,14 @@ jobs:
         result=$(curl -s -o /dev/null -w '%{http_code}\n' -X POST "https://pizza-factory.cs329.click/api/badge/${{ secrets.NET_ID }}/jwtpizzacoverage?label=Coverage&value=$coverage%25&color=$color" -H "authorization: bearer ${{ secrets.FACTORY_API_KEY }}")
         [[ "$result" == 200 ]] || { echo "Badge generation failed: HTTP $result" >&2; exit 1; }   
         
- deploy:
-  needs: build
-  permissions:
-    id-token: write
-  runs-on: ubuntu-latest
-  env:
-    version: ${{needs.build.outputs.version}}
-  steps:
+  deploy:
+    needs: build
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    env:
+      version: ${{needs.build.outputs.version}}
+    steps:
     - name: Create OIDC token to AWS
       uses: aws-actions/configure-aws-credentials@v6.3.0
       with:
